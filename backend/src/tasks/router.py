@@ -1,5 +1,4 @@
-from fastapi import APIRouter, Form, HTTPException
-from typing import Annotated
+from fastapi import APIRouter, HTTPException
 
 from . import service as _service, schemas as _schemas
 
@@ -12,7 +11,7 @@ task_id = 1  # Переменная для генерации уникальны
 
 # Маршрут для создания новой задачи
 @router.post("/")
-def create_task(task: Annotated[_schemas.Task, Form()]) -> _schemas.TaskWithID:
+def create_task(task: _schemas.Task) -> _schemas.TaskWithID:
     global task_id
     task_dict = task.model_dump()
     task_dict["id"] = task_id
